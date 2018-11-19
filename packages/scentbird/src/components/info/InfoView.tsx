@@ -19,6 +19,7 @@ export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) =>
 
    return  <Layout {...props}>
                 <AddressForm
+                    title="Shipping address"
                     state={state.shipping}
                     hasPhone
                     onPropertyChange={(e) => {compose(dispatch, act.shipping, act.form.changeProperty)(e)}}
@@ -44,6 +45,7 @@ export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) =>
                 </div>
                 {!state.useSame &&
                 <AddressForm
+                    title="Billing address"
                     state={state.billing}
                     onPropertyChange={compose(dispatch, act.billing, act.form.changeProperty)}
                 />
