@@ -28,4 +28,4 @@ Looks lie there is no sense to set up different but unrecognizable for an eye st
 
 # TODO #
 - Clean-up dependencies
-- Separate forms logic into an isolated packages
+- Separate form logic into isolated packages
