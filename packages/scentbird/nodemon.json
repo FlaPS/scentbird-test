@@ -1,0 +1,16 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "quiet": false,
+  "watch": [
+    "./webpack.config",
+    "./server",
+    "./bin",
+    "./config",
+    "package.json"
+  ],
+  "env": {
+    "NODE_ENV": "development",
+    "DEBUG": "app:*"
+  }
+}
