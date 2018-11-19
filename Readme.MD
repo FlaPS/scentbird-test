@@ -21,11 +21,14 @@ Looks lie there is no sense to set up different but unrecognizable for an eye st
 - Type system can recornize nothing into css/sass/less files. It's the biggest valley of a typos/errors, hard and disappointing to fix them
 - The css toolchain is very poor for now in compare of css in JS techniques. For example I could not control the behaviour of separated styles in runtime.
 
-5 I didn't implement comboboxes, I think it's a good task for a whole day because of:
+5. I didn't implement comboboxes, I think it's a good task for a whole day because of:
 - binded zip/postal codes, 
 - different behaviour on devices, 
 - virtualization of the lists
 
+
 # TODO #
 - Clean-up dependencies
 - Separate form logic into isolated packages
+- In aware of latest TypeScript updates need to reimplement ```src/tests/lazy-compose``` 
+compose(compose(a,b),c) === compose(a, compose(b,c)) should works well
