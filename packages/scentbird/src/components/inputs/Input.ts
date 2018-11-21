@@ -1,6 +1,8 @@
 import {OnValue, Renderable} from '@sha/react-fp'
 import {ErrorMap, TouchMap} from '../../store/scentbird/createFormDuck'
 
+
+export const propertyPayload = <T, F>(field: F) => (value: any) => ({property: field, value})
 /**
  * Example
  *         <StringInput gridArea={'fn'} {...bindInput(props)('firstName')} label='First name'/>

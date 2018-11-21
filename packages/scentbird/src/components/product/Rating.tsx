@@ -6,24 +6,36 @@ import {LightGrey} from '../../styles/Typography'
 import {DivProps, EMPTY_VALUE} from '@sha/react-fp'
 import {ProductVO} from '../../store/scentbird/valueObjects'
 
-
-export const Rating = ({
-                           product = EMPTY_VALUE,
-                           value = product.rating,
-                           quantOfReviews = product.reviews,
-                           ...props
-                       }: Partial<RatingProps>) =>
-    <div {...props}>
-        AVERAGE RATING 
-        <LightGrey>({quantOfReviews} reviews)</LightGrey>
-        <br/>
-        <RatingBar value={value} quantOfReviews={quantOfReviews}/>
-    </div>
-
-
 export const starsLength = 5
 const starWidth = 13
 
+export const Rating = ({
+       product = EMPTY_VALUE,
+       value = product.rating,
+       quantOfReviews = product.reviews,
+       ...props
+   }: Partial<RatingProps>) =>
+    <div {...props}>
+        AVERAGE RATING <LightGrey>({quantOfReviews} reviews)</LightGrey>
+        <br/>
+        <RatingBar value={value} />
+    </div>
+
+const RatingBar = ({value = 0, ...props}: RatingBarProps) =>
+    <div {...props}>
+        <StarRow>
+            {times(index =>
+                    <ProgressStar
+                        value={(value - index)}
+                        key={index}
+                    />,
+                starsLength,
+            )}
+        </StarRow>
+        <span>
+            {(value).toFixed(1)} out of {starsLength}
+        </span>
+    </div>
 
 const ProgressStar = ({value = 0}: { value: number }) => {
     value = clamp(0, 1, value)
@@ -39,30 +51,15 @@ const ProgressStar = ({value = 0}: { value: number }) => {
     </RatingStarLayout>
 }
 
-const RatingBar = ({value = 0, quantOfReviews = 1, ...props}: RatingBarProps) =>
-    <div {...props}>
-        <StarRow>
-            {times(index =>
-                    <ProgressStar
-                        value={(value - index / starsLength) * starsLength}
-                        key={index}
-                    />,
-                starsLength,
-            )}
-        </StarRow>
-        <span>
-            {(value / quantOfReviews * starsLength).toFixed(1)} out of {starsLength}
-        </span>
-    </div>
 
 type RatingProps = RatingBarProps & {
     product: ProductVO
+    quantOfReviews?: number
 }
 
 type RatingBarProps =
     & DivProps
     & {
-    quantOfReviews: number
     value?: number
 }
 

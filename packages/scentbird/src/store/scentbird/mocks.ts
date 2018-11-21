@@ -5,7 +5,7 @@ export const productMock: ProductVO = {
     name: 'Rose & Prosecco',
     purpose: 'Hand Cream',
     url: '/HandCream.png',
-    rating: 4.7,
+    rating: 3.65,
     reviews: 23,
     purchaseOptions: [
         {

@@ -5,7 +5,7 @@ import {styled} from '../../styles/styled'
 import {BillingAddressVO, ShippingAddressVO} from '../../store/scentbird/valueObjects'
 import {AddressForm} from './AddressForm'
 import {createInfoDuck} from '../../store/scentbird/createInfoDuck'
-import {compose} from 'redux'
+import {compose} from '../../tests/lazyCompose'
 import {FormState} from '../inputs/Input'
 import {StringInput} from '../inputs/StringInput'
 import {pathOr} from 'ramda'
@@ -17,12 +17,15 @@ import {PageLayout} from '../PageLayout'
 
 export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) => {
 
-   return  <Layout {...props}>
+    const changeShipping = compose(dispatch, act.shipping, act.form.changeProperty)
+    const changeBilling = compose(dispatch, act.billing, act.form.changeProperty)
+
+    return  <Layout {...props}>
                 <AddressForm
-                    title="Shipping address"
+                    title='Shipping address'
                     state={state.shipping}
                     hasPhone
-                    onPropertyChange={(e) => {compose(dispatch, act.shipping, act.form.changeProperty)(e)}}
+                    onPropertyChange={changeShipping}
                 />
                 <CheckBox
                     label='Use this address as my billing address'
@@ -34,7 +37,7 @@ export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) =>
                     <StringInput
                         value={pathOr('', ['shipping', 'value', 'phone'], state)}
                         onValue={value => {
-                            compose(dispatch, act.shipping, act.form.changeProperty)({property: 'phone', value})
+                            changeShipping({property: 'phone', value})
                         }}
                         label='Mobile number'
                         optional
@@ -45,15 +48,15 @@ export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) =>
                 </div>
                 {!state.useSame &&
                 <AddressForm
-                    title="Billing address"
+                    title='Billing address'
                     state={state.billing}
-                    onPropertyChange={compose(dispatch, act.billing, act.form.changeProperty)}
+                    onPropertyChange={changeBilling}
                 />
                 }
-                <div className="actions">
+                <div className='actions'>
                     <BackLink/>
-                    <AddonButton 
-                        addon={SVGLibrary.ForwardIcon} 
+                    <AddonButton
+                        addon={SVGLibrary.ForwardIcon}
                         onClick={() => dispatch(act.submit(undefined))}
                     >
                         BUY NOW
@@ -118,6 +121,5 @@ const Layout = styled(PageLayout)`
         `}
     }
 `
-
 
 
