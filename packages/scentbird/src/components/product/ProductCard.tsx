@@ -15,8 +15,8 @@ import MediaTest from '../MediaTest'
 const log = console.log
 
 export const ProductCard = ({product, onAddToQueue = log, ...props}: ProductCardProps) => {
-    const [optionIndex, setOptionIndex] = React.useState(0)
 
+    const [optionIndex, setOptionIndex] = React.useState(0)
     return  <Layout {...props}>
                 <ProductTitle product={product}/>
                 <Rating className="rating" product={product}/>

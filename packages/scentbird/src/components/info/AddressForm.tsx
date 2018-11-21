@@ -6,9 +6,10 @@ import {media} from '../../styles/media'
 import {ShippingAddressVO} from '../../store/scentbird/valueObjects'
 import {ExtractProps} from '@sha/react-fp'
 
-export const AddressForm = ({hasPhone,  ...props}: DetailViewProps) => {
+export const AddressForm = ({hasPhone, title, ...props}: DetailViewProps) => {
     const bind = bindInput(props)
     return  <Layout {...props}>
+                <div className='title'>{title}</div>
                 <StringInput gridArea={'fn'} {...bind('firstName')} label='First name'/>
                 <StringInput gridArea={'ln'} {...bind('lastName')} label='Last name'/>
                 <StringInput gridArea={'sa'} {...bind('street')} label='Street address'/>
@@ -24,8 +25,9 @@ type DetailViewProps =
     & FormProps<ShippingAddressVO>
     & ExtractProps<typeof Layout>
     & {
-    hasPhone?: boolean
-}
+        hasPhone?: boolean
+        title: string
+    }
 
 
 const Layout = styled.div`
@@ -33,22 +35,30 @@ const Layout = styled.div`
     display: flex;
     flex-direction: column;
     ${media.portraitMax`
-    > :not(:last-child) {
-            margin-bottom: 29px;
-        }
+        > :not(:last-child) {
+                margin-bottom: 29px;
+            }
     `}
 
-
+    .title {
+      font-size: 24px;
+      grid-area: hh;
+      ${media.phone`
+          font-size: 18px;
+          text-align: center;
+      `}
+    }
+    
     .remark {
-      grid-area: hl;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      width: 100%;
-      height: 50px
+          grid-area: hl;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          width: 100%;
+          height: 50px
     }
     > .landscape {
-        display: none;
+          display: none;
     }
 
 
@@ -57,6 +67,7 @@ const Layout = styled.div`
         grid-gap: 20px;
 
         grid-template-areas:
+            "hh hh hh hh hh hh"
             "fn fn fn ln ln ln"
             "sa sa sa sa ap ap"
             "in in ct1 ct1 ct2 ct2"

@@ -34,7 +34,7 @@ export const InfoView = ({dispatch, state, act, ...props}: ShippingViewProps) =>
                     <StringInput
                         value={pathOr('', ['shipping', 'value', 'phone'], state)}
                         onValue={value => {
-                            compose(dispatch, act.billing, act.form.changeProperty)({property: 'phone', value})
+                            compose(dispatch, act.shipping, act.form.changeProperty)({property: 'phone', value})
                         }}
                         label='Mobile number'
                         optional
